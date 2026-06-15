@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrainDrop — Drop the thought. Move on.</title>
+<meta name="description" content="BrainDrop is a low-friction capture app for busy, noisy brains. Speak or type — it's saved before the thought is gone. Built for ADHD. Private by default.">
+<meta property="og:title" content="BrainDrop — Drop the thought. Move on.">
+<meta property="og:description" content="Catch the thought before it's gone. Voice-first capture for ADHD brains. No accounts, no cloud, no tracking.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getbraindrop.app">
+<meta name="theme-color" content="#1F4E79">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --navy:#1F4E79; --navy-d:#143352; --soft:#E8EEF5; --ink:#111; --muted:#5f636a;
+    --line:#e3e7ec; --bg:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.3px}
+  .logo{width:34px;height:34px;border-radius:9px;background:var(--navy);display:flex;align-items:center;justify-content:center}
+  .nav-links{display:flex;gap:24px;font-size:15px;color:var(--muted)}
+  .nav-links a{text-decoration:none}
+  .nav-links a:hover{color:var(--ink)}
+
+  /* hero */
+  .hero{background:linear-gradient(180deg,var(--navy),var(--navy-d));color:#fff;padding:72px 0 80px}
+  .hero-grid{display:flex;gap:48px;align-items:center;flex-wrap:wrap;justify-content:center}
+  .hero-copy{flex:1;min-width:300px;max-width:480px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);color:#cfe0f0;font-size:13px;padding:6px 14px;border-radius:999px;margin-bottom:20px}
+  h1{font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-1px;font-weight:800}
+  .sub{font-size:18px;color:#bcd2e8;margin-top:18px;max-width:440px}
+  .badges{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+  .badge{display:flex;align-items:center;gap:9px;background:#000;color:#fff;border-radius:11px;padding:10px 18px;text-decoration:none;transition:transform .15s ease}
+  .badge:hover{transform:translateY(-2px)}
+  .badge small{display:block;font-size:11px;opacity:.85;line-height:1}
+  .badge b{font-size:17px;font-weight:600;line-height:1.2}
+  .badge .ic{font-size:26px;line-height:1}
+
+  /* phone */
+  .phone{width:248px;height:506px;border-radius:42px;background:#0c1117;padding:11px;flex-shrink:0;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+  .screen{width:100%;height:100%;background:#fff;border-radius:32px;position:relative;overflow:hidden}
+  .island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:86px;height:22px;background:#0c1117;border-radius:12px}
+  .ph-placeholder{padding:48px 22px 0;font-size:18px;color:#bbb}
+  .ph-card{position:absolute;top:104px;left:22px;right:22px;background:var(--soft);border-radius:18px;padding:13px 15px;font-size:15px;color:var(--navy);display:flex;align-items:center;gap:8px;animation:drop 4.2s ease-in-out infinite}
+  .ph-mic-wrap{position:absolute;bottom:96px;left:50%;transform:translateX(-50%)}
+  .ph-mic{width:96px;height:96px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;animation:pulse 2s ease-in-out infinite}
+  .ph-tabs{position:absolute;bottom:0;left:0;right:0;height:56px;border-top:1px solid var(--line);display:flex;font-size:12px}
+  .ph-tabs div{flex:1;text-align:center;padding-top:13px;color:#bbb}
+  .ph-tabs .on{color:var(--navy);font-weight:600}
+  @keyframes drop{0%{opacity:0;transform:translateY(-20px) scale(.92)}14%{opacity:1;transform:translateY(0) scale(1)}72%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(8px) scale(.98)}}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+  /* features */
+  section{padding:80px 0}
+  .sec-h{text-align:center;font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+  .sec-sub{text-align:center;color:var(--muted);font-size:17px;margin-bottom:48px}
+  .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
+  .feat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px}
+  .feat .ic{font-size:30px;color:var(--navy)}
+  .feat h3{font-size:18px;font-weight:700;margin:14px 0 6px}
+  .feat p{color:var(--muted);font-size:15px}
+
+  /* steps */
+  .steps{background:var(--soft);}
+  .steps-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+  .step{text-align:center}
+  .step .n{width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .step h3{font-size:18px;font-weight:700;margin-bottom:6px}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* cta */
+  .cta{background:linear-gradient(180deg,var(--navy),var(--navy-d));color:#fff;text-align:center}
+  .cta h2{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.5px}
+  .cta p{color:#bcd2e8;font-size:17px;margin:12px 0 28px}
+  .cta .badges{justify-content:center}
+
+  /* footer */
+  footer{background:#0c1117;color:#9aa3ad;padding:40px 0;font-size:14px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:#cfe0f0;text-decoration:none;margin-left:24px}
+  .foot a:hover{text-decoration:underline}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .ph-card,.ph-mic{animation:none}
+  }
+  @media(max-width:560px){.nav-links{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <span class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5C16 7 18 10 18 14a6 6 0 0 1-12 0c0-4 2-7 6-11.5Z" fill="#fff"/><circle cx="13.3" cy="14.5" r="2.4" fill="#1F4E79"/></svg>
+      </span>
+      BrainDrop
+    </div>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="pill">⚡ Built for ADHD brains</span>
+      <h1>Catch the thought before it's gone.</h1>
+      <p class="sub">Open, speak or type, done. No projects, no setup, no friction — just drop it and move on.</p>
+      <div class="badges">
+        <a class="badge" href="#" aria-label="Download on the App Store">
+          <span class="ic">&#63743;</span>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a>
+        <a class="badge" href="#" aria-label="Get it on Google Play">
+          <span class="ic">&#9654;</span>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="phone" aria-hidden="true">
+      <div class="screen">
+        <div class="island"></div>
+        <div class="ph-placeholder">Drop a thought…</div>
+        <div class="ph-card">⏰ Call mum · Tomorrow 6:00pm</div>
+        <div class="ph-mic-wrap"><div class="ph-mic">
+          <svg width="40" height="40" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0 0 12 0" fill="none" stroke="#fff" stroke-width="2"/><line x1="12" y1="17" x2="12" y2="21" stroke="#fff" stroke-width="2"/><line x1="8" y1="21" x2="16" y2="21" stroke="#fff" stroke-width="2"/></svg>
+        </div></div>
+        <div class="ph-tabs"><div class="on">Capture</div><div>Today</div><div>Week</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <h2 class="sec-h reveal">Everything you need. Nothing you don't.</h2>
+    <p class="sec-sub reveal">The big to-do apps are too heavy. BrainDrop does one thing brilliantly.</p>
+    <div class="feats">
+      <div class="feat reveal">
+        <div class="ic">🎙️</div><h3>Voice-first capture</h3>
+        <p>Tap the mic and say it out loud. It's transcribed and saved before you forget — entirely on your device.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic">⏰</div><h3>Reminders that set themselves</h3>
+        <p>Say "call mum at 6pm tomorrow" and BrainDrop reads the time and date for you. No extra taps.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic">🔒</div><h3>Private by default</h3>
+        <p>No accounts. No cloud sync. No tracking. Your thoughts stay on your phone — we never see them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="steps">
+  <div class="wrap">
+    <h2 class="sec-h reveal">Three taps from thought to done.</h2>
+    <p class="sec-sub reveal">No onboarding. No tutorial. Open it and go.</p>
+    <div class="steps-row">
+      <div class="step reveal"><div class="n">1</div><h3>Open</h3><p>BrainDrop launches straight onto the capture screen. No login, no home dashboard.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>Drop it</h3><p>Speak or type the thought. Mention a time and it schedules a reminder automatically.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>Move on</h3><p>It's saved and out of your head. BrainDrop pings you when it matters.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2 class="reveal">Quiet your brain in a tap.</h2>
+    <p class="reveal">Free on iOS and Android.</p>
+    <div class="badges reveal">
+      <a class="badge" href="#" aria-label="Download on the App Store">
+        <span class="ic">&#63743;</span>
+        <span><small>Download on the</small><b>App Store</b></span>
+      </a>
+      <a class="badge" href="#" aria-label="Get it on Google Play">
+        <span class="ic">&#9654;</span>
+        <span><small>Get it on</small><b>Google Play</b></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Ada Engineering · Made for noisy brains.</span>
+    <span>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="support.html">Support</a>
+      <a href="mailto:support@getbraindrop.app">Contact</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
